@@ -9,6 +9,7 @@ import com.gargoylesoftware.htmlunit.util.NameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,24 @@ public class HttpUtils {
         return Jsoup.parse(result);
     }
 
+    public HtmlPage getHtmlPage(String url) throws IOException {
+        return getHtmlPage(new WebRequest(new URL(url)));
+    }
+
+    public HtmlPage getHtmlPage(WebRequest webRequest) throws IOException {
+        final WebClient webClient = new WebClientBuilder().build();
+        HtmlPage page;
+        try {
+            page = webClient.getPage(webRequest);
+            webClient.waitForBackgroundJavaScript(waitForBackgroundJavaScript);//该方法阻塞线程
+        } catch (Exception e) {
+            webClient.close();
+            throw e;
+        }
+        webClient.close();
+        return page;
+    }
+
     /**
      * 获取页面文档字串(等待异步JS执行)
      *
@@ -94,19 +113,7 @@ public class HttpUtils {
     }
 
     public String getHtmlPageResponse(WebRequest webRequest) throws Exception {
-        String result = "";
-        final WebClient webClient = new WebClientBuilder().build();
-        HtmlPage page;
-        try {
-            page = webClient.getPage(webRequest);
-        } catch (Exception e) {
-            webClient.close();
-            throw e;
-        }
-        webClient.waitForBackgroundJavaScript(waitForBackgroundJavaScript);//该方法阻塞线程
-        result = page.asXml();
-        webClient.close();
-        return result;
+        return getHtmlPage(webRequest).asXml();
     }
 
     /**
@@ -127,6 +134,7 @@ public class HttpUtils {
 
     /**
      * 生成请求参数
+     *
      * @param nvnvnv {name1,value1,name2,value2......}
      */
     public static List<NameValuePair> generateRequestParameters(String... nvnvnv) {

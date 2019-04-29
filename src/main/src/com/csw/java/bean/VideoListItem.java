@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 public class VideoListItem implements Serializable {
 
+    private static final long serialVersionUID = -4198603155745075903L;
     private String name;//片名
     private String coverUrl;//视频封面
     private String desc;//视频描述
-    private String detailPageKey;//详情页key
+    private String siteKey;//网站Key
+    private String baseUrl;
+    private String detailUrl;//详情页地址
 
     public String getName() {
         return name;
@@ -33,15 +36,31 @@ public class VideoListItem implements Serializable {
         this.desc = desc;
     }
 
-    public String getDetailPageKey() {
-        return detailPageKey;
+    public String getSiteKey() {
+        return siteKey;
     }
 
-    public void setDetailPageKey(String detailPageKey) {
-        this.detailPageKey = detailPageKey;
+    public void setSiteKey(String siteKey) {
+        this.siteKey = siteKey;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    public String getDetailUrl() {
+        return detailUrl;
+    }
+
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
     }
 
     public boolean enable() {
-        return name != null && detailPageKey != null;
+        return name != null && detailUrl != null;
     }
 }
