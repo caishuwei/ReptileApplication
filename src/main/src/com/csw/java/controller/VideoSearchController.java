@@ -47,34 +47,37 @@ public class VideoSearchController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/detail")
-    public String getVideoDetail(Model model, String siteKey, String baseUrl, String detailUrl) {
+    public String getVideoDetail(Model model, String siteKey, String baseUrl, String detailUrl, String videoName) {
         if (siteKey == null || baseUrl == null || detailUrl == null) {
             return "error";
         }
+        model.addAttribute("title", videoName);
+        model.addAttribute("videoName", videoName);
         if (baseUrl.endsWith("/")) {
             baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
         }
         switch (siteKey) {
             case PpekkAPI.SITE_KEY:
                 DetailData detailData = new PpekkAPI().getPlaySrc(baseUrl, detailUrl);
-                model.addAttribute("detailData",GSONUtils.toJSONString(detailData));
+                model.addAttribute("detailData", GSONUtils.toJSONString(detailData));
                 break;
         }
         return "detail";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/play")
-    public String getPlayHtml(Model model, String siteKey, String baseUrl, String playUrl,String data) {
+    public String getPlayHtml(Model model, String siteKey, String baseUrl, String playUrl, String data, String videoName, String sectionName) {
         if (siteKey == null || baseUrl == null || playUrl == null) {
             return "error";
         }
+        model.addAttribute("title", videoName + " " + sectionName);
         if (baseUrl.endsWith("/")) {
             baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
         }
         switch (siteKey) {
             case PpekkAPI.SITE_KEY:
-                String url = new PpekkAPI().getVideoUrl(baseUrl, playUrl,data);
-                model.addAttribute("url",url);
+                String url = new PpekkAPI().getVideoUrl(baseUrl, playUrl, data);
+                model.addAttribute("url", url);
                 break;
         }
         return "play";

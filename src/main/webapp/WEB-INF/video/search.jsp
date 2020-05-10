@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>${title}</title>
     <style type="text/css">
         a{text-decoration:none;}
     </style>
@@ -20,8 +21,8 @@
     if (videoListItems != null && videoContainer != null) {
         var textHTML = "<ul>";
         for (var i = 0; i < videoListItems.length; i++) {
-            textHTML = textHTML + "<a href='" + "${pageContext.request.contextPath}/video/detail?siteKey=" + videoListItems[i].siteKey + "&baseUrl=" + videoListItems[i].baseUrl +
-                "&detailUrl=" + videoListItems[i].detailUrl + "'>";
+            textHTML = textHTML + "<a target='_blank' href='" + "${pageContext.request.contextPath}/video/detail?siteKey=" + videoListItems[i].siteKey + "&baseUrl=" + videoListItems[i].baseUrl +
+                "&detailUrl=" + videoListItems[i].detailUrl +"&videoName="+videoListItems[i].name+ "'>";
             textHTML += "<li>";
             textHTML += "<p>";
             textHTML += videoListItems[i].name;

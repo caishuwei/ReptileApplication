@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
+    <title>ReptileApplication</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
@@ -23,7 +24,8 @@
             p.onclick = function (key, baseUrl) {
                 return function () {
                     var word = document.getElementById("word").value;
-                    document.location.href = "${pageContext.request.contextPath}/video/search?word=" + word + "&siteKey=" + key + "&baseUrl=" + baseUrl;
+                    window.open("${pageContext.request.contextPath}/video/search?word=" + word + "&siteKey=" + key + "&baseUrl=" + baseUrl);
+                    //document.location.href = "${pageContext.request.contextPath}/video/search?word=" + word + "&siteKey=" + key + "&baseUrl=" + baseUrl;
                 }
             }(sites[i].key, sites[i].baseUrl);
             sitesContainer.appendChild(p);

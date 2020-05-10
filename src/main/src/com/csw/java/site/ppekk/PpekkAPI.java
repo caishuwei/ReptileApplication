@@ -18,7 +18,7 @@ import java.util.List;
 
 public class PpekkAPI implements IVideoSearchAPI {
     public static final String SITE_NAME = "ppekk";
-    public static final String SITE_KEY = "https://www.ppekk.com";
+    public static final String SITE_KEY = "http://www.ppekk.com";
     private static final String SEARCH_PATH = "/vod-search";
 
     @Override

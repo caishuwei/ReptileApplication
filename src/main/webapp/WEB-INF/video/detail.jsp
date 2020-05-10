@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>${title}</title>
 </head>
 
 <body>
@@ -26,8 +27,13 @@
         textHTML += "<ul>";
         var resourceList = resourceGroup.resourceList;
         for (var j = 0; j < resourceList.length; j++) {
-            textHTML += "<a href='" + "${pageContext.request.contextPath}/video/play?siteKey=" + detailData.siteKey + "&baseUrl=" + detailData.baseUrl +
-                "&playUrl=" + resourceList[j].playUrl + "&data=" + resourceList[j].extraData + "'>";
+            textHTML += "<a target='_blank' href='" + "${pageContext.request.contextPath}/video/play?siteKey=" + detailData.siteKey
+                + "&baseUrl=" + detailData.baseUrl
+                + "&playUrl=" + resourceList[j].playUrl
+                + "&data=" + resourceList[j].extraData
+                + "&videoName=" + "${videoName}"
+                + "&sectionName=" + resourceList[j].name
+                + "'>";
             textHTML += "<li>";
             textHTML += resourceList[j].name;
             textHTML += "</li>";
